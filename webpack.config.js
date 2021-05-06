@@ -27,7 +27,7 @@ module.exports = {
         main: './main.js'
     },
     output: {
-        filename: '[name].[fullhash].[chunkhash].[contenthash].js',
+        filename: '[name].[contenthash].js',
         path: path.resolve(__dirname, 'dist')
     },
     devServer: {
@@ -55,7 +55,7 @@ module.exports = {
             minify: {
                 collapseWhitespace: isDev,
                 keepClosingSlash: true,
-                removeComments: true,
+                removeComments: isProd,
                 removeRedundantAttributes: true,
                 removeScriptTypeAttributes: true,
                 removeStyleLinkTypeAttributes: true,

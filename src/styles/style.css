@@ -7,3 +7,9 @@
 .title-style {
     width: 30px;
 }
+
+.prevent-a {
+    text-decoration: none;
+    color: none;
+    outline: none;
+}
