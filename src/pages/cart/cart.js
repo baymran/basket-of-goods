@@ -9,7 +9,10 @@ import '@/styles/style.css'
 import cartModel from '@s/cart-model'
 import {makeAutoObservable} from 'mobx'
 import { observer } from 'mobx-react'
+
+import { routesMap } from '@/routes'
 import {Link} from 'react-router-dom'
+
 
 class Cart extends Component {
     constructor(props) {
@@ -51,8 +54,8 @@ class Cart extends Component {
                 </table>
                 <strong>Total: $ {cartModel.total}</strong>
                 <div style={{margin: "70px 0"}}></div>
-                <Link to='/order' className="prevent-a">
-                <Button size="large" variant="outlined"color="primary" onClick={1}>Оформить заказ</Button>
+                <Link to={routesMap.order} className="prevent-a">
+                <Button size="large" variant="outlined"color="primary">Оформить заказ</Button>
                 </Link>
         </Container>
         )

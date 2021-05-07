@@ -8,7 +8,7 @@ import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import Button from '@material-ui/core/Button'
 import IconButton from '@material-ui/core/IconButton'
 import { observer } from 'mobx-react'
-import {BrowserRouter as Router, Route} from 'react-router-dom'
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 import routes from '@/routes'
 
 import Cart from '@p/Cart';
@@ -29,7 +29,9 @@ class App extends React.Component {
         return (
             <Router>
                 <Container>
-                    {routesComponents}
+                    <Switch>
+                        {routesComponents}
+                    </Switch>
                </Container>
             </Router>
         )

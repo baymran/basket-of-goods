@@ -5,6 +5,8 @@ import cartModel from '@s/cart-model'
 import router from '@s/router'
 import { observer } from 'mobx-react'
 import orderModel from '@s/order-model'
+import { routesMap } from '@/routes'
+import {Link} from 'react-router-dom'
 
 class Order extends Component {
     state = {
@@ -21,7 +23,8 @@ class Order extends Component {
 
     confirm = () => {
         this.hide()
-        this.props.onSend()
+        this.props.history.push(routesMap.result)
+        console.log(this.props)
     }
 
     render(){
@@ -67,10 +70,13 @@ class Order extends Component {
                     {formFields}
                 </Form>
                 <hr/>
+                <Link to={routesMap.home} className="prevent-a">
                 <Button variant="warning" onClick={() => router.moveTo('cart')}>
                     Back to cart
                 </Button>
+                </Link>
                 &nbsp;
+                
                 <Button variant="primary"
                         onClick={(e) => {cartModel.checkOrder(); this.show(e)}}
                         disabled={!orderModel.formValid}>
@@ -89,7 +95,7 @@ class Order extends Component {
                         <Button variant="secondary" onClick={this.hide}>
                         Close
                         </Button>
-                        <Button variant="primary" onClick={() => router.moveTo('result')}>
+                        <Button variant="primary" onClick={this.confirm}>
                         Save Changes
                         </Button>
                     </Modal.Footer>
