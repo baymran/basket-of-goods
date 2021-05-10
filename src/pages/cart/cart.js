@@ -21,17 +21,17 @@ class Cart extends Component {
 
     render(){
         let productsRows =  
-            cartModel.products.map((prod, i) => {
+            cartModel.prodDetailed.map((prod, i) => {
             return (
                 <tr key={i}>
                     <td>{prod.title}</td>
                     <td>{prod.price}</td>
                     <td>
-                        <AppMinMax min={0} max={prod.rest} cnt={prod.current}
-                                   onChange={cartModel.onChange[i]} />
+                        <AppMinMax min={1} max={prod.rest} cnt={prod.cnt}
+                                   onChange={cnt => cartModel.change(prod.id, cnt)} />
                     </td>
-                    <td>{prod.price * prod.current}</td>
-                    <td><IconButton onClick={() => cartModel.remove(i)} aria-label="delete"><DeleteOutlineIcon /></IconButton></td>
+                    <td>{1 * prod.cnt}</td>
+                    <td><IconButton onClick={() => cartModel.remove(prod.id)} aria-label="delete"><DeleteOutlineIcon /></IconButton></td>
                 </tr>
             );
         });

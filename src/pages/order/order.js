@@ -2,11 +2,10 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types'
 import {Form, Button, Modal} from 'react-bootstrap'
 import cartModel from '@s/cart-model'
-import router from '@s/router'
 import { observer } from 'mobx-react'
 import orderModel from '@s/order-model'
 import { routesMap } from '@/routes'
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 class Order extends Component {
     state = {

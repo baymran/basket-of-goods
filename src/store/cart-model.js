@@ -1,43 +1,62 @@
 import {makeObservable, observable, computed, action} from 'mobx'
+import productsStore from './products'
 
 class Cart{
     constructor(){
         makeObservable(this, {
             products: observable,
             checkOrder: action,
+            prodDetailed: computed,
             total: computed,
+            add: action,
             change: action,
-            remove: action,
-            onChange: computed
+            remove: action
         })
     }
-    products = getProducts();
+    products = [{id: 101, cnt: 2}]
     currentChoice = []
 
-    get total() {
-        return this.products.reduce((t, pr) => t + pr.price * pr.current, 0)
-    }
-
-    get onChange(){ // борьба за оптимизацию
-        return this.products.map((item, i) => {
-            return (cnt) => this.change(i, cnt)
+    get prodDetailed(){
+        return this.products.map((pr) => {
+            let product = productsStore.getById(pr.id)
+            return {...product, cnt: pr.cnt}
         })
     }
 
-    change(i, cnt){
-        this.products[i].current = cnt;
+    get total() {
+        return this.products.reduce((t, pr) => {
+            let product = productsStore.getById(pr.id)
+            return t + product.price * pr.cnt;
+        }, 0)
     }
 
-    remove(i){
-        this.products.splice(i, 1)
+    add(id){
+        this.products.push({id, cnt: 1});
+    }
+
+    change(id, cnt){
+        let index = this.products.findIndex(pr => pr.id === id);
+        if(index !== -1){
+            this.products[index].cnt = cnt;
+        }
+        
+    }
+
+    remove(id){
+        let index = this.products.findIndex((pr) => pr.id === id);
+
+        if(index !== -1){
+            this.products.splice(index, 1)
+        }
+        
     }
 
     checkOrder(){
         this.currentChoice = []
         for (let key of this.products) {
-            if(key.current > 0) {
+            if(key.cnt > 0) {
                 let arr = []
-                arr.push(key.title, key.current)
+                arr.push(key.title, key.cnt)
                 this.currentChoice.push(arr)
             }
         }
@@ -45,22 +64,3 @@ class Cart{
 }
 
 export default new Cart();
-
-
-
-
-
-
-
-
-
-// server API
-function getProducts() {
-    return [
-        {id: 100, title: 'IPhone20X', price: 1000, rest: 10, current: 0},
-        {id: 101, title: 'SamsungAAF3', price: 750, rest: 5, current: 0},
-        {id: 102, title: 'XiaomiGreenMI5', price: 300, rest: 15, current: 0},
-        {id: 103, title: 'Huawei50H', price: 350, rest: 12, current: 0},
-        {id: 104, title: 'Nokia', price: 100, rest: 3, current: 0}
-    ]
-}
