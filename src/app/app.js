@@ -8,12 +8,13 @@ import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import Button from '@material-ui/core/Button'
 import IconButton from '@material-ui/core/IconButton'
 import { observer } from 'mobx-react'
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
+import {BrowserRouter as Router, Route, Switch, Link} from 'react-router-dom'
 import routes from '@/routes'
 
 import Cart from '@p/Cart';
 import Order from '@p/Order';
 import Result from '@p/Result';
+import { routesMap } from '../routes/routes';
 
 
 class App extends React.Component {
@@ -29,9 +30,29 @@ class App extends React.Component {
         return (
             <Router>
                 <Container>
-                    <Switch>
-                        {routesComponents}
-                    </Switch>
+                    header
+                    <hr/>
+                    <div className="row">
+                        <div style={{marginTop: 25}} className="col col-3">
+                            <ul className="list-group">
+                                <li className="list-group-item">
+                                    <Link to={routesMap.home}>Home</Link>
+                                </li>
+                                <li className="list-group-item">
+                                    <Link to={routesMap.cart}>Cart</Link>
+                                </li>
+                                <li className="list-group-item">
+                                    <Link to={routesMap.order}>Order now</Link>
+                                </li>
+                            </ul>
+                        </div>
+                        <div className="col col-9">
+                            <Switch>
+                                {routesComponents}
+                            </Switch>
+                        </div>
+                    </div>
+                    
                </Container>
             </Router>
         )

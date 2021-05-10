@@ -7,13 +7,14 @@ class Cart{
             products: observable,
             checkOrder: action,
             prodDetailed: computed,
+            inCart: computed,
             total: computed,
             add: action,
             change: action,
             remove: action
         })
     }
-    products = [{id: 101, cnt: 2}]
+    products = []
     currentChoice = []
 
     get prodDetailed(){
@@ -21,6 +22,10 @@ class Cart{
             let product = productsStore.getById(pr.id)
             return {...product, cnt: pr.cnt}
         })
+    }
+
+    get inCart(){
+        return (id) => this.products.some(pr => pr.id === id)
     }
 
     get total() {

@@ -37,6 +37,11 @@ function getProducts() {
         {id: 101, title: 'SamsungAAF3', price: 750, rest: 5},
         {id: 102, title: 'XiaomiGreenMI5', price: 300, rest: 15},
         {id: 103, title: 'Huawei50H', price: 350, rest: 12},
-        {id: 104, title: 'Nokia', price: 100, rest: 3}
+        {id: 104, title: 'Nokia', price: 100, rest: 3},
+        {id: 105, title: 'ZTE1', price: 1000, rest: 10},
+        {id: 106, title: 'VFONE', price: 750, rest: 5},
+        {id: 107, title: 'Alcatel10Z', price: 300, rest: 15},
+        {id: 108, title: 'SSangYong-ActII', price: 350, rest: 12},
+        {id: 109, title: 'Haval-amg', price: 100, rest: 3}
     ]
 }

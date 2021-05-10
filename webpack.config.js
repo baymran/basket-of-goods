@@ -3,10 +3,26 @@ const HTMLWebpackPlugin = require('html-webpack-plugin')
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const DirectoryNamedWebpackPlugin = require('directory-named-webpack-plugin');
+const Terser = require('terser-webpack-plugin');
+const OptimizeCssAssets = require('optimize-css-assets-webpack-plugin');
 
 
 const isDev = process.env.NODE_ENV  === 'development'
 const isProd = !isDev
+const optimization = () => {
+    const config = {
+        splitChunks: {
+            chunks: 'all'
+        }
+    }
+    if(isProd) {
+        config.minimizer = [
+            new OptimizeCssAssets(),
+            new Terser()
+        ]
+    }
+    return config;
+}
 
 const babelOptions = (preset) => {
     const opts = {
@@ -30,6 +46,7 @@ module.exports = {
         filename: '[name].[contenthash].js',
         path: path.resolve(__dirname, 'dist')
     },
+    optimization: optimization(),
     devServer: {
         contentBase: path.join(__dirname, 'dist'),
         compress: true,
@@ -53,7 +70,7 @@ module.exports = {
             filename: 'index.html',
             template: './index.html',
             minify: {
-                collapseWhitespace: isDev,
+                collapseWhitespace: isProd,
                 keepClosingSlash: true,
                 removeComments: isProd,
                 removeRedundantAttributes: true,
